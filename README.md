@@ -112,6 +112,12 @@ jobs:
 ```
 
 3. Add your Azure Storage account key as a secret in your GitHub repository settings.
+4. Set up GitHub Secrets:
+
+On your GitHub repository page, go to "Settings" > "Secrets and variables" > "Actions"
+Click "New repository secret"
+Name it AZURE_STORAGE_KEY and paste your Azure Storage account key as the value
+Click "Add secret"
 
 ## Conclusion
 
