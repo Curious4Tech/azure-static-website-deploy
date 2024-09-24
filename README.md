@@ -30,10 +30,10 @@ Before you begin, ensure you have the following:
 # Log in to Azure CLI
 az login
 
-# Create a resource group (if you don't have one)
+# Create a resource group (if you don't have one). Replace ```myResourceGroup``` by your desired resource group name.
 az group create --name myResourceGroup --location eastus
 
-# Create a storage account
+# Create a storage account. Replace ```mystorageaccount``` by your desired storage account name (must be globally unique accross all azure storage account names) and replace  ```myResourceGroup``` by your desired resource group name.
 az storage account create --name mystorageaccount --resource-group myResourceGroup --location eastus --sku Standard_LRS --kind StorageV2
 ```
 
