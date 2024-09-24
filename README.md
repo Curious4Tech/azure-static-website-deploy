@@ -10,7 +10,6 @@ This repository contains the necessary files and instructions to deploy a static
   - [2. Enable Static Website Hosting](#2-enable-static-website-hosting)
   - [3. Upload Your Static Website Files](#3-upload-your-static-website-files)
   - [4. Configure Custom Domain (Optional)](#4-configure-custom-domain-optional)
-  - [5. Set Up Continuous Deployment with GitHub Actions](#5-set-up-continuous-deployment-with-github-actions)
 - [Conclusion](#conclusion)
 - [Additional Resources](#additional-resources)
 
@@ -73,51 +72,6 @@ az storage blob upload-batch --account-name mystorageaccount --auth-mode key --d
 ```bash
 az storage account update --name mystorageaccount --resource-group myResourceGroup --custom-domain yourdomain.com --enable-https-traffic-only true
 ```
-
-### 5. Set Up Continuous Deployment with GitHub Actions
-
-1. Create a `.github/workflows` directory in your repository.
-
-2. Create a file named `azure-static-website-deploy.yml` in the workflows directory with the following content:
-
-```yaml
-name: Deploy to Azure Storage
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  build_and_deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-    - name: Install dependencies
-      run: npm ci
-    - name: Build
-      run: npm run build
-    - name: Deploy to Azure Storage
-      uses: azure/CLI@v1
-      with:
-        inlineScript: |
-          az storage blob upload-batch --account-name mystorageaccount --auth-mode key --destination '$web' --source ./dist
-      env:
-        AZURE_STORAGE_ACCOUNT: mystorageaccount
-        AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
-```
-
-3. Add your Azure Storage account key as a secret in your GitHub repository settings.
-4. Set up GitHub Secrets:
-
-On your GitHub repository page, go to "Settings" > "Secrets and variables" > "Actions"
-Click "New repository secret"
-Name it AZURE_STORAGE_KEY and paste your Azure Storage account key as the value
-Click "Add secret"
 
 ## Conclusion
 
